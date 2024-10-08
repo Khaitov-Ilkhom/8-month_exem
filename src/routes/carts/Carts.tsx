@@ -10,7 +10,7 @@ const Carts = () => {
   return (
       <div className="min-h-screen flex flex-col">
         <Navbar/>
-        <div className="my-[120px] flex-grow ">
+        <div className="my-[120px] flex-grow px-8">
             <div className="w-full flex flex-col items-end">
               <div className="w-full">
                 <h2 className=" text-left text-3xl font-bold mb-5">

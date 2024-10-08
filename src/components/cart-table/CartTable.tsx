@@ -10,9 +10,11 @@ import {
 } from "../../redux/slice/cartSlice.ts"
 import { RootState } from "../../redux/store";
 import {Products} from "../../types";
+import {useState} from "react";
 
 const CartTable = ({ product  }: { product: Products }) => {
   const dispatch = useDispatch();
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const cartProduct = useSelector((state: RootState) =>
       selectCartProductById(state, product.id)
   );
@@ -57,19 +59,18 @@ const CartTable = ({ product  }: { product: Products }) => {
   };
 
   return (
-      <tr className="w-full text-center">
-        <td className="w-[150px]">
+      <tr className="w-full text-center border">
+        <td className="w-[200px] border-r">
           <Image
               width={100}
-              height={100}
               className="w-full"
               src={product.image_link}
               alt=""
           />
         </td>
-        <td className="font-bold w-[300px]">{product.name}</td>
-        <td className="font-bold w-[200px]">{changedCurrency(+product.price)}</td>
-        <td className="w-[250px] text-center ">
+        <td className="font-bold w-[300px] border-r">{product.name}</td>
+        <td className="font-bold w-[200px] border-r">{changedCurrency(+product.price)}</td>
+        <td className="w-[250px] text-center border-r">
           <div className="flex items-center gap-5 justify-center">
             <AiOutlineMinus
                 onClick={handleDecrement}
@@ -81,6 +82,20 @@ const CartTable = ({ product  }: { product: Products }) => {
                 className="text-[#56b280] text-xl font-bold transition-transform active:scale-90"
             />
           </div>
+        </td>
+        <td className="w-[250px] flex justify-center items-center border-r">
+          <div className="grid grid-cols-4 gap-3 my-4">
+            {product.product_colors.map((color, index) => (
+                <button
+                    key={index}
+                    onClick={() => setSelectedColor(color.hex_value)}
+                    className={selectedColor === color.hex_value ? "h-10 w-10 rounded border border-slate-500 shadow-md" : "h-10 w-10 rounded border border-slate-300 shadow-md"}
+                    style={{backgroundColor: color.hex_value}}
+                    title={color.colour_name}
+                ></button>
+            ))}
+          </div>
+
         </td>
         <td>
           <Popconfirm
