@@ -1,18 +1,18 @@
-import { TiDelete } from "react-icons/ti";
-import {  Image, Popconfirm, PopconfirmProps, message } from "antd";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
+import {TiDelete} from "react-icons/ti";
+import {Image, Popconfirm, PopconfirmProps, message} from "antd";
+import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
+import {useDispatch, useSelector} from "react-redux";
 import {
   incrementQuantity,
   decrementQuantity,
   selectCartProductById,
   removeFromCart,
 } from "../../redux/slice/cartSlice.ts"
-import { RootState } from "../../redux/store";
+import {RootState} from "../../redux/store";
 import {Products} from "../../types";
 import {useState} from "react";
 
-const CartTable = ({ product  }: { product: Products }) => {
+const CartTable = ({product}: { product: Products }) => {
   const dispatch = useDispatch();
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const cartProduct = useSelector((state: RootState) =>
@@ -60,7 +60,7 @@ const CartTable = ({ product  }: { product: Products }) => {
 
   return (
       <tr className="w-full text-center border">
-        <td className="w-[200px] border-r">
+        <td className="border-r">
           <Image
               width={100}
               className="w-full"
@@ -70,7 +70,7 @@ const CartTable = ({ product  }: { product: Products }) => {
         </td>
         <td className="font-bold w-[300px] border-r">{product.name}</td>
         <td className="font-bold w-[200px] border-r">{changedCurrency(+product.price)}</td>
-        <td className="w-[250px] text-center border-r">
+        <td className="text-center border-r">
           <div className="flex items-center gap-5 justify-center">
             <AiOutlineMinus
                 onClick={handleDecrement}
@@ -83,7 +83,7 @@ const CartTable = ({ product  }: { product: Products }) => {
             />
           </div>
         </td>
-        <td className="w-[250px] flex justify-center items-center border-r">
+        <td className="flex justify-center items-center border-r">
           <div className="grid grid-cols-4 gap-3 my-4">
             {product.product_colors.map((color, index) => (
                 <button
@@ -95,21 +95,22 @@ const CartTable = ({ product  }: { product: Products }) => {
                 ></button>
             ))}
           </div>
-
         </td>
-        <td>
-          <Popconfirm
-              title={`Delete the ${product.name}`}
-              description={`Are you sure to delete this ${product.name}?`}
-              onConfirm={confirm}
-              onCancel={cancel}
-              okText="Delete"
-              cancelText="Cancel"
-          >
-            <TiDelete
-                className="text-4xl text-center block mx-auto text-[#56b280]"
-            />
-          </Popconfirm>
+        <td className="">
+          <div>
+            <Popconfirm
+                title={`Delete the ${product.name}`}
+                description={`Are you sure to delete this ${product.name}?`}
+                onConfirm={confirm}
+                onCancel={cancel}
+                okText="Delete"
+                cancelText="Cancel"
+            >
+              <TiDelete
+                  className="text-4xl text-center block mx-auto text-[#56b280]"
+              />
+            </Popconfirm>
+          </div>
         </td>
       </tr>
   );

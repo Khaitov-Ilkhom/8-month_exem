@@ -10,21 +10,22 @@ const Carts = () => {
   return (
       <div className="min-h-screen flex flex-col">
         <Navbar/>
-        <div className="my-[120px] flex-grow px-8">
-            <div className="w-full flex flex-col items-end">
-              <div className="w-full">
+        <div className="my-[50px] flex-grow px-8">
+            <div className="w-full flex flex-col">
+              <div className="!text-center">
                 <h2 className=" text-left text-3xl font-bold mb-5">
                   Product Cart
                 </h2>
               </div>
-              <table className="w-full cart-table">
-                <thead className=" ">
-                <tr>
-                  <th scope="col">Product Image</th>
-                  <th scope="col">Product Name</th>
-                  <th scope="col">Product Price</th>
-                  <th scope="col"><p>Quantity</p></th>
-                  <th scope="col">Action</th>
+              <table className="cart-table">
+                <thead>
+                <tr className="">
+                  <th className="py-4 text-center">Product Image</th>
+                  <th className="py-4 text-center">Product Name</th>
+                  <th className="py-4 text-center">Product Price</th>
+                  <th className="py-4 text-center">Quantity</th>
+                  <th className="py-4 text-center">Colors</th>
+                  <th className="py-4 !text-center">Action</th>
                 </tr>
                 </thead>
                 <tbody className="pt-5">
@@ -34,7 +35,7 @@ const Carts = () => {
                     ))
                 ) : (
                     <tr className="w-full">
-                      <td colSpan={6} className="text-center py-10">
+                      <td colSpan={6} className="py-10">
                         Cart is empty
                       </td>
                     </tr>
