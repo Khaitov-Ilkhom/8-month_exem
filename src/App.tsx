@@ -1,10 +1,11 @@
 import './App.css'
+import RouteController from "./routes/RouteController.tsx";
 
 function App() {
 
   return (
     <>
-     <p className="bg-slate-400">Hello world</p>
+     <RouteController/>
     </>
   )
 }
