@@ -4,6 +4,8 @@ import {SuspenseElement as Suspense} from "../utils/Index.tsx";
 
 const Home:LazyExoticComponent<any> = React.lazy(() => import("./home/Home.tsx"))
 const Liked:LazyExoticComponent<any> = React.lazy(() => import("./liked-product/LikedProduct.tsx"))
+const Details:LazyExoticComponent<any> = React.lazy(() => import("./details/Details.tsx"))
+const Carts:LazyExoticComponent<any> = React.lazy(() => import("./carts/Carts.tsx"))
 
 const RouteController = () => {
   return (
@@ -15,6 +17,14 @@ const RouteController = () => {
         {
           path: "liked-product",
           element: <Suspense><Liked/></Suspense>
+        },
+        {
+          path: "details/:id",
+          element: <Suspense><Details/></Suspense>
+        },
+        {
+          path: "carts",
+          element: <Suspense><Carts/></Suspense>
         }
       ])
   )

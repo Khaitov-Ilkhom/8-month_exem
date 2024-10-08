@@ -1,47 +1,63 @@
-// import {createSlice} from "@reduxjs/toolkit";
-// import {Products} from "../../types";
-//
-// interface IInitialState {
-//   cartProducts: Products[]
-// }
-//
-// const initialState: IInitialState = {
-//   cartProducts: JSON.parse(<string>localStorage.getItem("cart")) || [],
-// }
-//
-// const cartSlice = createSlice({
-//   name: "cart",
-//   initialState,
-//   reducers: {
-//     addToCart: (state, {payload}) => {
-//       const checkProductAlreadyExist = state.cartProducts.findIndex(product => product.id === payload.id);
-//       if (checkProductAlreadyExist === -1) {
-//         state.cartProducts.push(payload)
-//       } else {
-//         state.cartProducts = state.cartProducts.map(product => {
-//           if (product.id === payload.id) {
-//             product.quantity = product.quantity + payload.quantity
-//           }
-//           return product
-//         })
-//       }
-//       localStorage.setItem("cart", JSON.stringify(state.cartProducts))
-//     },
-//     removeFromCart: (state, {payload}) => {
-//       if (payload.quantity) {
-//         state.cartProducts = state.cartProducts.map(product => {
-//           if (product.id === payload.id) {
-//             product.quantity = product.quantity - 1
-//           }
-//           return product
-//         })
-//       } else {
-//         state.cartProducts = state.cartProducts.filter(product => product.id !== payload.id)
-//       }
-//       localStorage.setItem("cart", JSON.stringify(state.cartProducts))
-//     }
-//   }
-// })
-//
-// export const {reducer} = cartSlice
-// export const {addToCart, removeFromCart} = cartSlice.actions
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
+import {Products} from "../../types";
+
+interface CartProduct extends Products {
+  quantity: number;
+}
+
+interface IInitialState {
+  cartProduct: CartProduct[];
+}
+
+const initialState: IInitialState = {
+  cartProduct: JSON.parse(localStorage.getItem("cart") || "[]"),
+};
+
+const cartSlice = createSlice({
+  name: "cart",
+  initialState,
+  reducers: {
+    addToCart: (state, action: PayloadAction<CartProduct>) => {
+      const { id, quantity } = action.payload;
+      const existingProduct = state.cartProduct.find(
+          (product) => product.id === id
+      );
+
+      if (existingProduct) {
+        existingProduct.quantity += quantity;
+      } else {
+        state.cartProduct.push(action.payload);
+      }
+
+      localStorage.setItem("cart", JSON.stringify(state.cartProduct));
+    },
+    removeFromCart: (state, action: PayloadAction<number>) => {
+      state.cartProduct = state.cartProduct.filter(
+          (product) => product.id !== action.payload
+      );
+      localStorage.setItem("cart", JSON.stringify(state.cartProduct));
+    },
+    incrementQuantity: (state, action: PayloadAction<number>) => {
+      const product = state.cartProduct.find((p) => p.id === action.payload);
+      if (product) {
+        product.quantity += 1;
+        localStorage.setItem("cart", JSON.stringify(state.cartProduct));
+      }
+    },
+    decrementQuantity: (state, action: PayloadAction<number>) => {
+      const product = state.cartProduct.find((p) => p.id === action.payload);
+      if (product && product.quantity > 1) {
+        product.quantity -= 1;
+        localStorage.setItem("cart", JSON.stringify(state.cartProduct));
+      }
+    },
+  },
+});
+
+export const selectCartProductById = (state: RootState, productId: number) =>
+    state.cart.cartProduct.find((product) => product.id === productId);
+
+export const {addToCart, removeFromCart, incrementQuantity, decrementQuantity,} = cartSlice.actions;
+
+export const {reducer} = cartSlice ;

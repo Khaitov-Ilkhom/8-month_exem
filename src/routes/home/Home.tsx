@@ -4,6 +4,7 @@ import Cards from "../../components/cards/Cards.tsx";
 import Skeletons from "../../components/skeleton/Skeleton.tsx";
 import {Button} from "antd";
 import {useState} from "react";
+import Navbar from "../../components/navbar/Navbar.tsx";
 
 const Home = () => {
   const [more, setMore] = useState<number>(12);
@@ -14,7 +15,7 @@ const Home = () => {
 
   return (
       <div>
-        {/*<Navbar/>*/}
+        <Navbar/>
         Home
 
         <div className="grid grid-cols-4 gap-6 px-6">
