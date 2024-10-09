@@ -13,7 +13,7 @@ const Carts = () => {
         <div className="my-[50px] flex-grow px-8">
             <div className="w-full flex flex-col">
               <div className="!text-center">
-                <h2 className=" text-left text-3xl font-bold mb-5">
+                <h2 className="text-center text-left text-3xl font-bold mb-5">
                   Product Cart
                 </h2>
               </div>
