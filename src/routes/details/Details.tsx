@@ -8,6 +8,7 @@ import {Image, message} from "antd";
 import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai";
 import {addToCart} from "../../redux/slice/cartSlice.ts";
 import {Products} from "../../types";
+import notImage from "../../images/sorry-image-not-available.jpg";
 
 const Details = () => {
   const {id} = useParams();
@@ -88,11 +89,13 @@ const Details = () => {
                 </div>
 
                 <div className="relative w-full lg:w-1/3 mb-6 lg:mb-0 lg:order-2">
-                  <Image
-                      src={data.image_link}
-                      alt={data.name}
-                      className="mx-auto object-contain w-80"
-                  />
+                  {
+                    data.image_link ? <Image className="w-full"
+                                             src={notImage} alt={data.name}
+                    /> : <Image width={100} className="w-full mx-auto object-contain"
+                                src={data.image_link} alt={data.name}
+                    />
+                  }
                 </div>
 
                 <div className="flex-1 lg:order-3 text-center lg:text-left">
@@ -107,7 +110,7 @@ const Details = () => {
                           <button
                               key={index}
                               onClick={() => setSelectedColor(color.hex_value)}
-                              className={selectedColor === color.hex_value ? "h-10 w-10 rounded border border-slate-500 shadow-md" : "h-10 w-10 rounded border border-slate-300 shadow-md"}
+                              className={selectedColor === color.hex_value ? "h-10 w-10 rounded border-2 border-slate-700 shadow-md" : "h-10 w-10 rounded border border-slate-400 shadow-md"}
                               style={{backgroundColor: color.hex_value}}
                               title={color.colour_name}
                           ></button>

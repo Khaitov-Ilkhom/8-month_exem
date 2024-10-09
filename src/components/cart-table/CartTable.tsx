@@ -11,8 +11,10 @@ import {
 import {RootState} from "../../redux/store";
 import {Products} from "../../types";
 import {useState} from "react";
+import notImage from "../../images/sorry-image-not-available.jpg"
 
 const CartTable = ({product}: { product: Products }) => {
+  const [colorsQuantity, setColorsQuantity] = useState<number>(8);
   const dispatch = useDispatch();
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const cartProduct = useSelector((state: RootState) =>
@@ -61,12 +63,13 @@ const CartTable = ({product}: { product: Products }) => {
   return (
       <tr className="w-full mx-auto text-center border">
         <td className="border-r">
-          <Image
-              width={100}
-              className="w-full"
-              src={product.image_link}
-              alt=""
-          />
+          {
+            product.image_link ? <Image width={100} className="w-full"
+                                        src={notImage} alt={product.name}
+            /> : <Image width={100} className="w-full"
+                        src={product.image_link} alt={product.name}
+            />
+          }
         </td>
         <td className="font-bold w-[300px] border-r">{product.name}</td>
         <td className="font-bold w-[200px] border-r">{changedCurrency(+product.price)}</td>
@@ -83,18 +86,21 @@ const CartTable = ({product}: { product: Products }) => {
             />
           </div>
         </td>
-        <td className="flex justify-center items-center border-r">
-          <div className="grid grid-cols-4 gap-3 my-4">
-            {product.product_colors.map((color, index) => (
+        <td className="flex justify-center items-center flex-col border-r py-2">
+          <div className="grid grid-cols-4 gap-3 my-2">
+            {product.product_colors.slice(0, colorsQuantity).map((color, index) => (
                 <button
                     key={index}
                     onClick={() => setSelectedColor(color.hex_value)}
-                    className={selectedColor === color.hex_value ? "h-10 w-10 rounded border border-slate-500 shadow-md" : "h-10 w-10 rounded border border-slate-300 shadow-md"}
+                    className={selectedColor === color.hex_value ? "h-10 w-10 rounded border-2 border-slate-700 shadow-md" : "h-10 w-10 rounded border border-slate-400 shadow-md"}
                     style={{backgroundColor: color.hex_value}}
                     title={color.colour_name}
                 ></button>
             ))}
           </div>
+          <button className="px-4 border border-gray-800 rounded-lg"
+                  onClick={() => setColorsQuantity(colorsQuantity + 4)}>More
+          </button>
         </td>
         <td className="">
           <div>
