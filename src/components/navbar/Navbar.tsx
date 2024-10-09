@@ -45,18 +45,18 @@ const Header = () => {
 
   return (
       <div
-          className="w-full mx-auto  bg-[#f7f8fa80] shadow-xl py-2">
-        <div className="max-w-[1440px] mx-auto w-full flex justify-between items-center gap-4 select-none px-10">
+          className="w-full mx-auto bg-[#f7f8fa80] shadow-xl py-2">
+        <div className="max-w-[1440px] mx-auto w-full flex justify-between items-center md:flex-row flex-col gap-4 select-none px-10">
           <div className="w-[300px]">
             <Form
                 initialValues={{search: getParam("brand")}}
                 onFinish={handleSearchSubmit}
-                className={hidden ? "flex items-center gap-3 bg-[#fefefe] max-w-[250px] w-full py-1 px-3 rounded-[62px] border border-gray-300  hover:border-[#56b280]" : "w-[60px] py-1 px-3 rounded-[62px] border border-gray-300  hover:border-[#56b280]"}
+                className={hidden ? "flex justify-center items-center gap-3 bg-[#fefefe] max-w-[250px] w-full py-1 px-3 rounded-[62px] border border-gray-300  hover:border-[#56b280]" : "w-[300px] md:w-[60px] flex items-start h-[40px] py-1 px-3 rounded-[62px] border border-gray-300  hover:border-[#56b280]"}
             >
               <BiSearch onClick={() => setHidden(!hidden)} className="text-[#0000005f] text-3xl"/>
               <Form.Item
                   name="search"
-                  className={hidden ? "w-full !mb-0 block" : "hidden"}
+                  className={hidden ? "w-full !mb-0 block" : "md:hidden block w-full"}
                   rules={[{required: false}]}
               >
                 <AutoComplete
@@ -85,7 +85,7 @@ const Header = () => {
               </Form.Item>
             </Form>
           </div>
-          <div>
+          <div className="hidden md:block">
             <Link to='/'><img className="max-w-[150px]" src={logo} alt="Logotip Make up store"/></Link>
           </div>
           <div className="max-w-[300px] w-full">
