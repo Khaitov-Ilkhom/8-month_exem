@@ -63,13 +63,10 @@ const CartTable = ({product}: { product: Products }) => {
   return (
       <tr className="w-full mx-auto text-center border">
         <td className="border-r">
-          {
-            !product.image_link ? <Image width={100} className="w-full"
-                                        src={notImage} alt={product.name}
-            /> : <Image width={100} className="w-full"
-                        src={product.image_link} alt={product.name}
-            />
-          }
+          <Image width={100} className="w-full" alt={product.name}
+                 src={product.image_link || notImage}
+                 onError={e => e.currentTarget.src = "https://ndpp.co.in/wp-content/uploads/2018/01/sorry-image-not-available.jpg"}
+          />
         </td>
         <td className="font-bold w-[300px] border-r">{product.name}</td>
         <td className="font-bold w-[200px] border-r">{changedCurrency(+product.price)}</td>

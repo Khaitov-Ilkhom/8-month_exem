@@ -89,13 +89,10 @@ const Details = () => {
                 </div>
 
                 <div className="relative w-full lg:w-1/3 mb-6 lg:mb-0 lg:order-2">
-                  {
-                    !data.image_link ? <Image className="w-full"
-                                             src={notImage} alt={data.name}
-                    /> : <Image className="w-full mx-auto object-contain"
-                                src={data.image_link} alt={data.name}
+                  <Image className="w-full mx-auto object-contain"
+                         src={data.image_link || notImage}
+                         onError={e => e.currentTarget.src = "https://ndpp.co.in/wp-content/uploads/2018/01/sorry-image-not-available.jpg"} alt={data.name}
                     />
-                  }
                 </div>
 
                 <div className="flex-1 lg:order-3 text-center lg:text-left">

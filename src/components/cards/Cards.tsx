@@ -52,14 +52,12 @@ const Cards = ({product}: { product: Products }) => {
         </div>
 
         <div>
-          {
-            product.image_link === "" ? <img className="w-full" src={notImage} alt={product.name}/> : <img
-                src={product.image_link}
-                alt="CoverGirl Outlast Longwear Lipstick"
-                className="w-full h-48 object-contain mb-4"
-            />
-          }
-
+          <img
+              src={product.image_link || notImage}
+              onError={e => e.currentTarget.src = "https://ndpp.co.in/wp-content/uploads/2018/01/sorry-image-not-available.jpg"}
+              alt="CoverGirl Outlast Longwear Lipstick"
+              className="w-full h-48 object-contain mb-4"
+          />
         </div>
 
         <h2 className="text-xl font-semibold line-clamp-1">{product.name}</h2>
