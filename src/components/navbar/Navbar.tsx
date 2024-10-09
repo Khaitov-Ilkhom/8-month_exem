@@ -45,75 +45,76 @@ const Header = () => {
 
   return (
       <div
-          className="w-full mx-auto flex justify-between items-center gap-4 select-none px-10 bg-[#f7f8fa80] shadow-xl py-2">
-        <div className="w-[300px]">
-          <Form
-              initialValues={{search: getParam("brand")}}
-              onFinish={handleSearchSubmit}
-              className={hidden ? "flex items-center gap-3 bg-[#fefefe] max-w-[250px] w-full py-1 px-3 rounded-[62px] border border-gray-300  hover:border-[#56b280]" : "w-[60px] py-1 px-3 rounded-[62px] border border-gray-300  hover:border-[#56b280]"}
-          >
-            <BiSearch onClick={() => setHidden(!hidden)} className="text-[#0000005f] text-3xl"/>
-            <Form.Item
-                name="search"
-                className={hidden ? "w-full !mb-0 block" : "hidden"}
-                rules={[{required: false}]}
+          className="w-full mx-auto  bg-[#f7f8fa80] shadow-xl py-2">
+        <div className="max-w-[1440px] mx-auto w-full flex justify-between items-center gap-4 select-none px-10">
+          <div className="w-[300px]">
+            <Form
+                initialValues={{search: getParam("brand")}}
+                onFinish={handleSearchSubmit}
+                className={hidden ? "flex items-center gap-3 bg-[#fefefe] max-w-[250px] w-full py-1 px-3 rounded-[62px] border border-gray-300  hover:border-[#56b280]" : "w-[60px] py-1 px-3 rounded-[62px] border border-gray-300  hover:border-[#56b280]"}
             >
-              <AutoComplete
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      navigate(`/search?brand=${search}`);
-                    }
-                  }}
-                  options={data?.map((product) => ({
-                    label: (
-                        <Link
-                            className="block capitalize"
-                            key={product.id}
-                            to={`/details/${product.id}`}
-                        >
-                          {product.brand}
-                        </Link>
-                    ),
-                  }))}
-                  style={{width: "100%"}}
-                  className="custom-autocomplete w-full"
-                  onSelect={onSelect}
-                  onSearch={(text) => (text ? loadData(text) : loadData(""))}
-                  placeholder="Search..."
-              />
-            </Form.Item>
-          </Form>
+              <BiSearch onClick={() => setHidden(!hidden)} className="text-[#0000005f] text-3xl"/>
+              <Form.Item
+                  name="search"
+                  className={hidden ? "w-full !mb-0 block" : "hidden"}
+                  rules={[{required: false}]}
+              >
+                <AutoComplete
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        navigate(`/search?brand=${search}`);
+                      }
+                    }}
+                    options={data?.map((product) => ({
+                      label: (
+                          <Link
+                              className="block capitalize"
+                              key={product.id}
+                              to={`/details/${product.id}`}
+                          >
+                            {product.brand}
+                          </Link>
+                      ),
+                    }))}
+                    style={{width: "100%"}}
+                    className="custom-autocomplete w-full"
+                    onSelect={onSelect}
+                    onSearch={(text) => (text ? loadData(text) : loadData(""))}
+                    placeholder="Search..."
+                />
+              </Form.Item>
+            </Form>
+          </div>
+          <div>
+            <Link to='/'><img className="max-w-[150px]" src={logo} alt="Logotip Make up store"/></Link>
+          </div>
+          <div className="max-w-[300px] w-full">
+            <ul className="flex items-center justify-center gap-6">
+              <li>
+                <Select
+                    className="border rounded-lg min-w-[100px]"
+                    defaultValue={currency}
+                    onChange={handleChange}
+                    options={[
+                      {value: 'uzs', label: 'UZS'},
+                      {value: 'usd', label: 'USD'},
+                      {value: 'rub', label: 'RUB'},
+                    ]}
+                />
+              </li>
+              <li className="text-lg">
+                <Link className="flex justify-center items-center" to="/liked-product"><Badge
+                    count={products.length}>{products.length > 0 ?
+                    <FaHeart className="text-red-600 text-[24px]"/> :
+                    <FaRegHeart className="text-red-600 text-[24px]"/>}</Badge></Link></li>
+              <li className="text-lg pt-2">
+                <Link to="/carts"><Badge count={cartProduct.length}>
+                  <PiHandbagFill className="text-[28px]"/></Badge>
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div>
-          <Link to='/'><img className="max-w-[150px]" src={logo} alt="Logotip Make up store"/></Link>
-        </div>
-        <div className="max-w-[300px] w-full">
-          <ul className="flex items-center justify-center gap-6">
-            <li>
-              <Select
-                  className="border rounded-lg"
-                  defaultValue={currency}
-                  onChange={handleChange}
-                  options={[
-                    {value: 'uzs', label: 'UZS'},
-                    {value: 'usd', label: 'USD'},
-                    {value: 'rub', label: 'RUB'},
-                  ]}
-              />
-            </li>
-            <li className="text-lg">
-              <Link className="flex justify-center items-center" to="/liked-product"><Badge
-                  count={products.length}>{products.length > 0 ?
-                  <FaHeart className="text-red-600 text-[24px]"/> :
-                  <FaRegHeart className="text-red-600 text-[24px]"/>}</Badge></Link></li>
-            <li className="text-lg pt-2">
-              <Link to="/carts"><Badge count={cartProduct.length}>
-                <PiHandbagFill className="text-[28px]"/></Badge>
-              </Link>
-            </li>
-          </ul>
-        </div>
-
       </div>
   )
 }
