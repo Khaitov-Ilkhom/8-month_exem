@@ -48,7 +48,7 @@ const Details = () => {
   };
 
   return (
-      <div>
+      <div className="w-full mx-auto">
         <Navbar/>
         {
             data && <div className="max-w-6xl mx-auto p-8">

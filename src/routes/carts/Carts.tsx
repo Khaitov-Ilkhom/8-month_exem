@@ -8,7 +8,7 @@ const Carts = () => {
   const { cartProduct }: { cartProduct: Products[] } = useSelector((state: RootState) => state.cart);
 
   return (
-      <div className="min-h-screen flex flex-col">
+      <div className="w-full mx-auto min-h-screen flex flex-col">
         <Navbar/>
         <div className="my-[50px] flex-grow px-8">
             <div className="w-full flex flex-col">

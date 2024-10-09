@@ -59,7 +59,7 @@ const CartTable = ({product}: { product: Products }) => {
   };
 
   return (
-      <tr className="w-full text-center border">
+      <tr className="w-full mx-auto text-center border">
         <td className="border-r">
           <Image
               width={100}

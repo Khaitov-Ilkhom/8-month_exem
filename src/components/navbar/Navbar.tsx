@@ -8,21 +8,23 @@ import {BiSearch} from "react-icons/bi";
 import useSearchParamsHook from "../../paramsHook/paramsHook.ts";
 import {useSearchProductQuery} from "../../redux/api/productsApi.ts"
 import {Products} from "../../types"
-import { PiHandbagFill } from "react-icons/pi";
+import {PiHandbagFill} from "react-icons/pi";
 import {changeCurrency} from "../../redux/slice/currencySlice.ts";
+import logo from "../../images/IMG_20241009_102615-removebg-preview.png"
 
 const Header = () => {
   const [search, setSearch] = useState<string>("");
+  const [hidden, setHidden] = useState<boolean>(false);
   const {getParam} = useSearchParamsHook()
   const {data} = useSearchProductQuery({brand: search})
   const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>()
   const {products}: { products: Products[] } = useSelector((state: RootState) => state.like);
-  const { cartProduct }: { cartProduct: Products[] } = useSelector((state: RootState) => state.cart);
+  const {cartProduct}: { cartProduct: Products[] } = useSelector((state: RootState) => state.cart);
   const {currency}: { currency: string } = useSelector((state: RootState) => state.currency);
 
   const handleSearchSubmit = (value: { search: string }) => {
-    navigate(`/search?q=${value.search}`);
+    navigate(`/search?brand=${value.search}`);
   };
 
   const onSelect = (data: string) => {
@@ -42,32 +44,30 @@ const Header = () => {
   }
 
   return (
-      <div className="w-full flex justify-between items-center px-10 bg-[#f7f8fa80] shadow-xl py-2">
-        <div>
-          <Link to='/'><h2>Hello</h2></Link>
-        </div>
-        <div>
+      <div
+          className="w-full mx-auto flex justify-between items-center gap-4 select-none px-10 bg-[#f7f8fa80] shadow-xl py-2">
+        <div className="w-[300px]">
           <Form
-              initialValues={{ search: getParam("brand") }}
+              initialValues={{search: getParam("brand")}}
               onFinish={handleSearchSubmit}
-              className="flex items-center  gap-3 bg-[#fefefe]  w-[500px] py-1 px-4 rounded-[62px] border border-gray-300  hover:border-[#56b280]"
+              className={hidden ? "flex items-center gap-3 bg-[#fefefe] max-w-[250px] w-full py-1 px-3 rounded-[62px] border border-gray-300  hover:border-[#56b280]" : "w-[60px] py-1 px-3 rounded-[62px] border border-gray-300  hover:border-[#56b280]"}
           >
-            <BiSearch className="text-[#0000005f] text-2xl" />
+            <BiSearch onClick={() => setHidden(!hidden)} className="text-[#0000005f] text-3xl"/>
             <Form.Item
                 name="search"
-                className="w-full !mb-0"
-                rules={[{ required: false }]}
+                className={hidden ? "w-full !mb-0 block" : "hidden"}
+                rules={[{required: false}]}
             >
               <AutoComplete
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                      navigate(`/search?q=${search}`);
+                      navigate(`/search?brand=${search}`);
                     }
                   }}
                   options={data?.map((product) => ({
                     label: (
                         <Link
-                            className="block"
+                            className="block capitalize"
                             key={product.id}
                             to={`/details/${product.id}`}
                         >
@@ -75,8 +75,8 @@ const Header = () => {
                         </Link>
                     ),
                   }))}
-                  style={{ width: "100%" }}
-                  className="custom-autocomplete"
+                  style={{width: "100%"}}
+                  className="custom-autocomplete w-full"
                   onSelect={onSelect}
                   onSearch={(text) => (text ? loadData(text) : loadData(""))}
                   placeholder="Search..."
@@ -85,16 +85,19 @@ const Header = () => {
           </Form>
         </div>
         <div>
-          <ul className="flex items-center justify-center gap-4">
+          <Link to='/'><img className="max-w-[150px]" src={logo} alt="Logotip Make up store"/></Link>
+        </div>
+        <div className="max-w-[300px] w-full">
+          <ul className="flex items-center justify-center gap-6">
             <li>
               <Select
                   className="border rounded-lg"
                   defaultValue={currency}
                   onChange={handleChange}
                   options={[
-                    { value: 'uzs', label: 'UZS' },
-                    { value: 'usd', label: 'USD' },
-                    { value: 'rub', label: 'RUB' },
+                    {value: 'uzs', label: 'UZS'},
+                    {value: 'usd', label: 'USD'},
+                    {value: 'rub', label: 'RUB'},
                   ]}
               />
             </li>
@@ -114,4 +117,4 @@ const Header = () => {
       </div>
   )
 }
-export default Header
+export default Header 
