@@ -64,7 +64,7 @@ const CartTable = ({product}: { product: Products }) => {
       <tr className="w-full mx-auto text-center border">
         <td className="border-r">
           {
-            product.image_link ? <Image width={100} className="w-full"
+            !product.image_link ? <Image width={100} className="w-full"
                                         src={notImage} alt={product.name}
             /> : <Image width={100} className="w-full"
                         src={product.image_link} alt={product.name}

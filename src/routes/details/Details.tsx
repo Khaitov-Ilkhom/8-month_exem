@@ -72,7 +72,7 @@ const Details = () => {
                               key={index}
                               xmlns="http://www.w3.org/2000/svg"
                               fill="currentColor"
-                              className="w-4 h-4"
+                              className="w-5 h-5"
                               viewBox="0 0 24 24"
                           >
                             <path
@@ -90,9 +90,9 @@ const Details = () => {
 
                 <div className="relative w-full lg:w-1/3 mb-6 lg:mb-0 lg:order-2">
                   {
-                    data.image_link ? <Image className="w-full"
+                    !data.image_link ? <Image className="w-full"
                                              src={notImage} alt={data.name}
-                    /> : <Image width={100} className="w-full mx-auto object-contain"
+                    /> : <Image className="w-full mx-auto object-contain"
                                 src={data.image_link} alt={data.name}
                     />
                   }

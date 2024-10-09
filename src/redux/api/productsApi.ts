@@ -23,7 +23,14 @@ const productsApi = api.injectEndpoints?.({
       }),
       providesTags: ["PRODUCT"]
     }),
+    getCategory: build.query<Products[], { "product_type": string | null }>({
+      query: (params) => ({
+        url: "/products.json",
+        params
+      }),
+      providesTags: ["PRODUCT"]
+    }),
   })
 })
 
-export const {useGetAllProductsQuery, useSearchProductQuery, useGetSingleProductsQuery} = productsApi
+export const {useGetAllProductsQuery, useSearchProductQuery, useGetSingleProductsQuery, useGetCategoryQuery} = productsApi

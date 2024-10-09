@@ -6,6 +6,7 @@ import {Button, Typography} from "antd";
 import {useState} from "react";
 import Navbar from "../../components/navbar/Navbar.tsx";
 import Hero from "../../components/hero/Hero.tsx";
+import Category from "../../components/category/Category.tsx";
 
 const { Title } = Typography;
 
@@ -18,8 +19,7 @@ const Home = () => {
       <div className="w-full mx-auto min-h-screen">
         <Navbar/>
         <Hero/>
-
-
+        <Category/>
         <div className="my-[40px]">
           <Title className="capitalize text-center" level={2}>{isLoading ? "Products are waiting to be loaded" : "All products" }</Title>
 

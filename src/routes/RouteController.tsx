@@ -7,6 +7,7 @@ const Liked:LazyExoticComponent<any> = React.lazy(() => import("./liked-product/
 const Details:LazyExoticComponent<any> = React.lazy(() => import("./details/Details.tsx"))
 const Carts:LazyExoticComponent<any> = React.lazy(() => import("./carts/Carts.tsx"))
 const Search:LazyExoticComponent<any> = React.lazy(() => import("./search/Search.tsx"))
+const Categories:LazyExoticComponent<any> = React.lazy(() => import("./categories/Categories.tsx"))
 
 const RouteController = () => {
   return (
@@ -30,6 +31,10 @@ const RouteController = () => {
         {
           path: "search",
           element: <Suspense><Search/></Suspense>
+        },
+        {
+          path: "category",
+          element: <Suspense><Categories/></Suspense>
         }
       ])
   )

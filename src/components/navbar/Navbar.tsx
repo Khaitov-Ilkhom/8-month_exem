@@ -51,7 +51,7 @@ const Header = () => {
             <Form
                 initialValues={{search: getParam("brand")}}
                 onFinish={handleSearchSubmit}
-                className={hidden ? "flex justify-center items-center gap-3 bg-[#fefefe] max-w-[250px] w-full py-1 px-3 rounded-[62px] border border-gray-300  hover:border-[#56b280]" : "w-[300px] md:w-[60px] flex items-start h-[40px] py-1 px-3 rounded-[62px] border border-gray-300  hover:border-[#56b280]"}
+                className={hidden ? "flex justify-center items-center gap-3 bg-[#fefefe] max-w-[280px] w-full py-1 px-3 rounded-[62px] border border-gray-300  hover:border-[#56b280]" : "w-[300px] md:w-[60px] flex items-start h-[40px] py-1 px-3 rounded-[62px] border border-gray-300  hover:border-[#56b280]"}
             >
               <BiSearch onClick={() => setHidden(!hidden)} className="text-[#0000005f] text-3xl"/>
               <Form.Item
