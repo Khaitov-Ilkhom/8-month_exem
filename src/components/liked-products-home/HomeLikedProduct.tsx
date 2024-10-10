@@ -11,9 +11,13 @@ const HomeLikedProduct = () => {
   const {products}: { products: Products[] } = useSelector((state: RootState) => state.like);
 
   const settings = {
+    autoplay: true,
     dots: true,
     infinite: true,
-    speed: 800,
+    speed: 2000,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+    pauseOnHover: true,
     slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [

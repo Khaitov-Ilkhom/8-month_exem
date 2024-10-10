@@ -26,7 +26,7 @@ const Home = () => {
         <div className="my-[40px]">
           <Title className="capitalize text-center" level={2}>{isLoading ? "Products are waiting to be loaded" : "All products" }</Title>
 
-          <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-6 my-[30px]">
+          <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-6 my-[30px]">
             {
               isLoading ? cards.map((_, index) => <Skeletons key={index}/>) :
                   data?.slice(52, (52 + more)).map((product: Products) =>

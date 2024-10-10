@@ -38,7 +38,7 @@ const Cards = ({product}: { product: Products }) => {
 
   return (
       <div
-          className="w-full mx-auto bg-white p-4 rounded-lg shadow-md max-w-sm group hover:scale-105 transition duration-700">
+          className="max-w-[330px] my-2 w-full mx-auto bg-white p-4 rounded-lg shadow-md group hover:scale-105 transition duration-700">
         <div className="w-full flex justify-between items-center h-[30px]">
           <h2 className="bg-black text-white text-xs px-2 py-1 inline-block rounded mb-2">DEAL</h2>
           <button onClick={() => handleLike(product)}
