@@ -7,6 +7,7 @@ import {useState} from "react";
 import Navbar from "../../components/navbar/Navbar.tsx";
 import Hero from "../../components/hero/Hero.tsx";
 import Category from "../../components/category/Category.tsx";
+import HomeLikedProduct from "../../components/liked-products-home/HomeLikedProduct.tsx";
 
 const { Title } = Typography;
 
@@ -20,6 +21,8 @@ const Home = () => {
         <Navbar/>
         <Hero/>
         <Category/>
+
+        <HomeLikedProduct/>
         <div className="my-[40px]">
           <Title className="capitalize text-center" level={2}>{isLoading ? "Products are waiting to be loaded" : "All products" }</Title>
 
@@ -32,7 +35,7 @@ const Home = () => {
             }
           </div>
           <div className="w-full mx-auto flex justify-center my-6">
-            <Button disabled={isLoading || more === 144} onClick={() => setMore(more + 4)}>Show more</Button>
+            <Button className="bg-fuchsia-300 text-white px-4 py-1" disabled={isLoading || more === 144} onClick={() => setMore(more + 4)}>Show more</Button>
           </div>
         </div>
       </div>

@@ -10,13 +10,11 @@ import {
 } from "../../redux/slice/cartSlice.ts"
 import {RootState} from "../../redux/store";
 import {Products} from "../../types";
-import {useState} from "react";
 import notImage from "../../images/sorry-image-not-available.jpg"
+import TableColors from "../table-colors/TableColors.tsx";
 
 const CartTable = ({product}: { product: Products }) => {
-  const [colorsQuantity, setColorsQuantity] = useState<number>(8);
   const dispatch = useDispatch();
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const cartProduct = useSelector((state: RootState) =>
       selectCartProductById(state, product.id)
   );
@@ -68,8 +66,9 @@ const CartTable = ({product}: { product: Products }) => {
                  onError={e => e.currentTarget.src = "https://ndpp.co.in/wp-content/uploads/2018/01/sorry-image-not-available.jpg"}
           />
         </td>
-        <td className="font-bold w-[300px] border-r">{product.name}</td>
-        <td className="font-bold w-[200px] border-r">{changedCurrency(+product.price)}</td>
+        <td className="font-bold max-w-[300px] border-r">{product.name}</td>
+        <td className="font-bold max-w-[200px] border-r">{changedCurrency(+product.price)}</td>
+        <td className="font-bold max-w-[200px] border-r">{changedCurrency(+product.price * quantity)}</td>
         <td className="text-center border-r">
           <div className="flex items-center gap-5 justify-center">
             <AiOutlineMinus
@@ -84,20 +83,7 @@ const CartTable = ({product}: { product: Products }) => {
           </div>
         </td>
         <td className="flex justify-center items-center flex-col border-r py-2">
-          <div className="grid grid-cols-4 gap-3 my-2">
-            {product.product_colors.slice(0, colorsQuantity).map((color, index) => (
-                <button
-                    key={index}
-                    onClick={() => setSelectedColor(color.hex_value)}
-                    className={selectedColor === color.hex_value ? "h-10 w-10 rounded border-2 border-slate-700 shadow-md" : "h-10 w-10 rounded border border-slate-400 shadow-md"}
-                    style={{backgroundColor: color.hex_value}}
-                    title={color.colour_name}
-                ></button>
-            ))}
-          </div>
-          <button className="px-4 border border-gray-800 rounded-lg"
-                  onClick={() => setColorsQuantity(colorsQuantity + 4)}>More
-          </button>
+          <TableColors product={product.product_colors} />
         </td>
         <td className="">
           <div>

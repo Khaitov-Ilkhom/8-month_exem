@@ -55,7 +55,7 @@ const Cards = ({product}: { product: Products }) => {
           <img
               src={product.image_link || notImage}
               onError={e => e.currentTarget.src = "https://ndpp.co.in/wp-content/uploads/2018/01/sorry-image-not-available.jpg"}
-              alt="CoverGirl Outlast Longwear Lipstick"
+              alt={product.name}
               className="w-full h-48 object-contain mb-4"
           />
         </div>
@@ -73,7 +73,7 @@ const Cards = ({product}: { product: Products }) => {
           <span className="line-through ml-2 text-gray-500">{changedCurrency(+product.price)}</span>
         </div>
         <div>
-          <button className="w-full px-4 py-2 rounded-xl shadow-xl mt-2"
+          <button className="w-full px-4 py-2 rounded-xl shadow-xl mt-2 bg-fuchsia-300 text-white"
                   onClick={() => navigateDetails(product.id)}>More details
           </button>
         </div>
