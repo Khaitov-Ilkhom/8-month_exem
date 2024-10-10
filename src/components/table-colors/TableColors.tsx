@@ -5,8 +5,7 @@ type colorsT = {
   colour_name: string
 }
 
-const TableColors = ({product} : {product: colorsT[]}) => {
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+const TableColors = ({product, selectColor} : {product: colorsT[], selectColor: string}) => {
   const [colorsQuantity, setColorsQuantity] = useState<number>(8);
 
   const colorsMore = (arr: colorsT[]) => {
@@ -15,16 +14,14 @@ const TableColors = ({product} : {product: colorsT[]}) => {
     }
   }
 
-  console.log(product)
-
   return (
       <div>
         <div className="grid grid-cols-4 gap-3 my-2">
           {product.slice(0, colorsQuantity).map((color, index) => (
               <button
+                  disabled={selectColor !== color.hex_value}
                   key={index}
-                  onClick={() => setSelectedColor(color.hex_value)}
-                  className={selectedColor === color.hex_value ? "h-10 w-10 rounded border-2 border-slate-700 shadow-md" : "h-10 w-10 rounded border border-slate-400 shadow-md"}
+                  className={selectColor === color.hex_value ? "cursor-pointer h-10 w-10 rounded border-2 border-pink-600 shadow-md" : "cursor-pointer h-10 w-10 rounded border-2 border-pink-300 shadow-md"}
                   style={{backgroundColor: color.hex_value}}
                   title={color.colour_name}
               ></button>

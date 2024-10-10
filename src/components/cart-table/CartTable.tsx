@@ -32,6 +32,7 @@ const CartTable = ({product}: { product: Products }) => {
   }
 
   const quantity = cartProduct?.quantity || 0;
+  const selectColor = cartProduct?.color || "";
 
   const handleIncrement = () => {
     dispatch(incrementQuantity(product.id));
@@ -83,7 +84,7 @@ const CartTable = ({product}: { product: Products }) => {
           </div>
         </td>
         <td className="flex justify-center items-center flex-col border-r py-2">
-          <TableColors product={product.product_colors} />
+          <TableColors product={product.product_colors} selectColor={selectColor} />
         </td>
         <td className="">
           <div>

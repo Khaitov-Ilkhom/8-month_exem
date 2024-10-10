@@ -4,6 +4,7 @@ import {Products} from "../../types";
 
 interface CartProduct extends Products {
   quantity: number;
+  color: string
 }
 
 interface IInitialState {

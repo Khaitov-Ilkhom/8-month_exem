@@ -13,7 +13,7 @@ import notImage from "../../images/sorry-image-not-available.jpg";
 const Details = () => {
   const {id} = useParams();
   const dispatch = useDispatch<AppDispatch>();
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [selectedColor, setSelectedColor] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
   const {data} = useGetSingleProductsQuery({id})
 
@@ -42,8 +42,8 @@ const Details = () => {
     }
   };
 
-  const handleAddToCart = (data: Products, quantity: number) => {
-    dispatch(addToCart({...data, quantity}));
+  const handleAddToCart = (data: Products, quantity: number, color: string) => {
+    dispatch(addToCart({...data, quantity, color}));
     message.success(`${data.name} added to cart`);
     setQuantity(1);
   };
@@ -107,7 +107,7 @@ const Details = () => {
                           <button
                               key={index}
                               onClick={() => setSelectedColor(color.hex_value)}
-                              className={selectedColor === color.hex_value ? "h-10 w-10 rounded border-2 border-slate-700 shadow-md" : "h-10 w-10 rounded border border-slate-400 shadow-md"}
+                              className={selectedColor === color.hex_value ? "h-10 w-10 rounded border-2 border-pink-700 shadow-md" : "h-10 w-10 rounded border-2 border-pink-300 shadow-md"}
                               style={{backgroundColor: color.hex_value}}
                               title={color.colour_name}
                           ></button>
@@ -130,7 +130,7 @@ const Details = () => {
                       </div>
 
                       <button
-                          onClick={() => handleAddToCart(data, quantity)}
+                          onClick={() => handleAddToCart(data, quantity, selectedColor)}
                           className="w-full rounded-lg border border-[#56b280] text-[#56b280] text-xl font-light py-1 transition-transform hover:bg-[#56b280] hover:text-white">+
                         Add to cart
                       </button>
