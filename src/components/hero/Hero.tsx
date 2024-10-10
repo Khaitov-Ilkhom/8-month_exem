@@ -20,9 +20,11 @@ const categories = [
 
 const Category_Carousel = () => {
   const settings = {
+    autoplay: true,
     dots: true,
     infinite: true,
-    speed: 800,
+    speed: 3000,
+    pauseOnHover: true,
     slidesToShow: 1,
     slidesToScroll: 1,
   };
