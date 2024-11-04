@@ -3,6 +3,7 @@ import {Typography} from "antd";
 import useSearchParamsHook from "../../paramsHook/paramsHook.ts";
 import Navbar from "../../components/navbar/Navbar.tsx";
 import Cards from "../../components/cards/Cards.tsx";
+import Footer from "../../components/footer/Footer.tsx";
 
 const {Title} = Typography;
 
@@ -26,6 +27,7 @@ const Search = () => {
             )}
           </div>
         </div>
+        <Footer/>
       </div>
   );
 }

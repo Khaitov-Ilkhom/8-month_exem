@@ -6,6 +6,7 @@ import {Products} from "../../types";
 import Cards from "../../components/cards/Cards.tsx";
 import {Button, Typography} from "antd";
 import {useState} from "react";
+import Footer from "../../components/footer/Footer.tsx";
 
 const { Title } = Typography;
 
@@ -38,6 +39,8 @@ const Categories = () => {
             <Button disabled={isLoading || more === data?.length} onClick={() => setMore(more + 4)}>Show more</Button>
           </div>
         </div>
+
+        <Footer/>
       </div>
   )
 }

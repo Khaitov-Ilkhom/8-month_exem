@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import Navbar from "../../components/navbar/Navbar.tsx";
 import {Typography} from "antd";
+import Footer from "../../components/footer/Footer.tsx";
 
 const { Title } = Typography;
 
@@ -21,6 +22,7 @@ const LikedProduct = () => {
             ))}
           </div>
         </div>
+        <Footer/>
       </div>
   )
 }
