@@ -3,6 +3,7 @@ import {  RootState } from "../../redux/store";
 import CartTable from "../../components/cart-table/CartTable.tsx";
 import {Products} from "../../types";
 import Navbar from "../../components/navbar/Navbar.tsx";
+import notProduct from "../../images/ProductNotFound.png"
 
 const Carts = () => {
   const { cartProduct }: { cartProduct: Products[] } = useSelector((state: RootState) => state.cart);
@@ -36,8 +37,10 @@ const Carts = () => {
                     ))
                 ) : (
                     <tr className="w-full">
-                      <td colSpan={6} className="py-10">
-                        Cart is empty
+                      <td colSpan={7} className="text-center py-10">
+                        <div className="flex items-center justify-center ">
+                          <img width={300} src={notProduct} alt=""/>
+                        </div>
                       </td>
                     </tr>
                 )}

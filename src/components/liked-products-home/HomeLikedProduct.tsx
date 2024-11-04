@@ -6,6 +6,10 @@ import {Products} from "../../types";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import Cards from "../cards/Cards.tsx";
+import {Typography} from "antd";
+
+const {Title} = Typography;
+
 
 const HomeLikedProduct = () => {
   const {products}: { products: Products[] } = useSelector((state: RootState) => state.like);
@@ -44,6 +48,14 @@ const HomeLikedProduct = () => {
 
   return (
       <div className="p-8">
+
+        {
+          products.length > 0 ? <div>
+                <Title className="capitalize text-center py-2" level={2}>Liked Products</Title>
+              </div>
+              : <div></div>
+        }
+
         <Slider {...settings}>
           {products.map((product) => (
               <Cards key={product.id} product={product}/>

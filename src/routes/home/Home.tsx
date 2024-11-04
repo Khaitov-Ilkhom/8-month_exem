@@ -8,10 +8,17 @@ import Navbar from "../../components/navbar/Navbar.tsx";
 import Hero from "../../components/hero/Hero.tsx";
 import Category from "../../components/category/Category.tsx";
 import HomeLikedProduct from "../../components/liked-products-home/HomeLikedProduct.tsx";
+import AOS from "aos";
+import "aos/dist/aos.css"
+import Footer from "../../components/footer/Footer.tsx";
 
 const { Title } = Typography;
 
 const Home = () => {
+  AOS.init({
+    duration: 500,
+  });
+
   const [more, setMore] = useState<number>(12);
   const {data, isLoading} = useGetAllProductsQuery()
   const cards = Array.from({length: 12})
@@ -28,7 +35,7 @@ const Home = () => {
 
           <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-6 my-[30px]">
             {
-              isLoading ? cards.map((_, index) => <Skeletons key={index}/>) :
+              isLoading ? cards.map((_, index) => <div data-aos="flip-left" key={index}><Skeletons/></div>) :
                   data?.slice(52, (52 + more)).map((product: Products) =>
                       <Cards key={product.id} product={product}/>
                   )
@@ -38,6 +45,8 @@ const Home = () => {
             <Button className="bg-fuchsia-300 text-white px-4 py-1" disabled={isLoading || more === 144} onClick={() => setMore(more + 4)}>Show more</Button>
           </div>
         </div>
+
+        <Footer/>
       </div>
   )
 }

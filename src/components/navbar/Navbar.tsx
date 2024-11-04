@@ -14,7 +14,6 @@ import logo from "../../images/IMG_20241009_102615-removebg-preview.png"
 
 const Header = () => {
   const [search, setSearch] = useState<string>("");
-  const [hidden, setHidden] = useState<boolean>(false);
   const {getParam} = useSearchParamsHook()
   const {data} = useSearchProductQuery({brand: search})
   const navigate = useNavigate()
@@ -45,18 +44,32 @@ const Header = () => {
 
   return (
       <div
-          className="w-full mx-auto bg-[#f7f8fa80] shadow-xl py-2">
-        <div className="max-w-[1440px] mx-auto w-full flex justify-between items-center md:flex-row flex-col gap-4 select-none px-10">
-          <div className="w-[300px]">
+          className="w-full mx-auto bg-[#f7f8fa80] shadow-md py-2">
+
+        <div className="w-full flex justify-end items-center px-[20px]">
+          <Select
+              className="border rounded-lg min-w-[80px]"
+              defaultValue={currency}
+              onChange={handleChange}
+              options={[
+                {value: 'uzs', label: 'UZS'},
+                {value: 'usd', label: 'USD'},
+                {value: 'rub', label: 'RUB'},
+              ]}
+          />
+        </div>
+
+        <div className="max-w-[1440px] mx-auto w-full flex justify-between items-center gap-4 select-none px-10">
+          <div className="w-full">
             <Form
                 initialValues={{search: getParam("brand")}}
                 onFinish={handleSearchSubmit}
-                className={hidden ? "flex justify-center items-center gap-3 bg-[#fefefe] max-w-[280px] w-full py-1 px-3 rounded-[62px] border border-gray-300  hover:border-[#56b280]" : "w-[300px] md:w-[60px] flex items-start h-[40px] py-1 px-3 rounded-[62px] border border-gray-300  hover:border-[#56b280]"}
+                className="flex justify-center items-center gap-3 w-[130px] md:w-[200px] lg:w-[350px] py-1 px-3 rounded-[62px]"
             >
-              <BiSearch onClick={() => setHidden(!hidden)} className="text-[#0000005f] text-3xl"/>
+              <BiSearch className="text-[#0000005f] text-3xl"/>
               <Form.Item
                   name="search"
-                  className={hidden ? "w-full !mb-0 block" : "md:hidden block w-full"}
+                  className="w-full !mb-0 block"
                   rules={[{required: false}]}
               >
                 <AutoComplete
@@ -85,23 +98,11 @@ const Header = () => {
               </Form.Item>
             </Form>
           </div>
-          <div className="hidden md:block">
-            <Link to='/'><img className="max-w-[150px]" src={logo} alt="Logotip Make up store"/></Link>
+          <div className="w-full hidden md:block">
+            <Link className="w-full flex justify-center items-center cursor-default" to='/'><img className="max-w-[180px] cursor-pointer" src={logo} alt="Logotip Make up store"/></Link>
           </div>
-          <div className="max-w-[300px] w-full">
+          <div className="w-full flex justify-end items-center">
             <ul className="flex items-center justify-center gap-6">
-              <li>
-                <Select
-                    className="border rounded-lg min-w-[100px]"
-                    defaultValue={currency}
-                    onChange={handleChange}
-                    options={[
-                      {value: 'uzs', label: 'UZS'},
-                      {value: 'usd', label: 'USD'},
-                      {value: 'rub', label: 'RUB'},
-                    ]}
-                />
-              </li>
               <li className="text-lg">
                 <Link className="flex justify-center items-center" to="/liked-product"><Badge
                     count={products.length}>{products.length > 0 ?

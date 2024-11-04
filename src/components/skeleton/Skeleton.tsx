@@ -1,6 +1,5 @@
 import { Skeleton } from 'antd';
 
-
 const Skeletons = () => {
   return (
       <div>

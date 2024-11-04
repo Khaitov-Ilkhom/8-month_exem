@@ -18,6 +18,8 @@ export interface Products {
   product_api_url:    string;
   api_featured_image: string;
   product_colors:     ProductColor[];
+  color: string;
+  quantity: number
 }
 
 export interface ProductColor {

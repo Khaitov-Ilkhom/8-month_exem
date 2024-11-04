@@ -5,9 +5,14 @@ import {addToLiked} from "../../redux/slice/likedSlice.ts";
 import {AppDispatch, RootState} from "../../redux/store";
 import {useNavigate} from "react-router-dom";
 import notImage from "../../images/sorry-image-not-available.jpg";
-
+import AOS from "aos";
+import "aos/dist/aos.css"
 
 const Cards = ({product}: { product: Products }) => {
+  AOS.init({
+    duration: 500,
+  });
+
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const {products}: { products: Products[] } = useSelector((state: RootState) => state.like);
@@ -37,8 +42,8 @@ const Cards = ({product}: { product: Products }) => {
   }
 
   return (
-      <div
-          className="max-w-[330px] my-2 w-full mx-auto bg-white p-4 rounded-lg shadow-md group hover:scale-105 transition duration-700">
+      <div data-aos="flip-left"
+           className="max-w-[330px] my-2 w-full mx-auto bg-white p-4 rounded-lg shadow-md group hover:scale-105 transition duration-700">
         <div className="w-full flex justify-between items-center h-[30px]">
           <h2 className="bg-black text-white text-xs px-2 py-1 inline-block rounded mb-2">DEAL</h2>
           <button onClick={() => handleLike(product)}

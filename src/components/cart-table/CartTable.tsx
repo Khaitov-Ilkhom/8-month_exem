@@ -5,19 +5,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {
   incrementQuantity,
   decrementQuantity,
-  selectCartProductById,
   removeFromCart,
 } from "../../redux/slice/cartSlice.ts"
 import {RootState} from "../../redux/store";
 import {Products} from "../../types";
 import notImage from "../../images/sorry-image-not-available.jpg"
-import TableColors from "../table-colors/TableColors.tsx";
 
 const CartTable = ({product}: { product: Products }) => {
   const dispatch = useDispatch();
-  const cartProduct = useSelector((state: RootState) =>
-      selectCartProductById(state, product.id)
-  );
   const {currency}: { currency: string } = useSelector((state: RootState) => state.currency);
 
   const changedCurrency = (cur: number) => {
@@ -31,17 +26,10 @@ const CartTable = ({product}: { product: Products }) => {
     }
   }
 
-  const quantity = cartProduct?.quantity || 0;
-  const selectColor = cartProduct?.color || "";
-
-  const handleIncrement = () => {
-    dispatch(incrementQuantity(product.id));
-  };
-
   const confirm: PopconfirmProps["onConfirm"] = (e) => {
     console.log(e);
     message.success(`${product.name} removed in cart`);
-    dispatch(removeFromCart(product.id));
+    dispatch(removeFromCart({id: product.id, color: product.color}));
   };
 
   const cancel: PopconfirmProps["onCancel"] = (e) => {
@@ -49,42 +37,49 @@ const CartTable = ({product}: { product: Products }) => {
     message.error(`${product.name} not removed in cart`);
   };
 
-  const handleDecrement = () => {
-    if (quantity > 1) {
-      dispatch(decrementQuantity(product.id));
-
+  const handleDecrement = (product: Products) => {
+    if (product.quantity && product.quantity > 1) {
+      dispatch(decrementQuantity({id: product.id, color: product.color}));
+      console.log(product)
     } else {
-      dispatch(removeFromCart(product.id));
+      dispatch(removeFromCart({id: product.id, color: product.color}));
       message.error(`${product.name} removed in cart`);
     }
   };
 
+  const handleIncrement = (product: Products) => {
+    dispatch(incrementQuantity({id: product.id, color: product.color}));
+    console.log(product)
+  };
+
   return (
-      <tr className="w-full mx-auto text-center border">
-        <td className="border-r">
+      <tr className="w-full mx-auto text-center border-b">
+        <td className="">
           <Image width={100} className="w-full" alt={product.name}
                  src={product.image_link || notImage}
                  onError={e => e.currentTarget.src = "https://ndpp.co.in/wp-content/uploads/2018/01/sorry-image-not-available.jpg"}
           />
         </td>
-        <td className="font-bold max-w-[300px] border-r">{product.name}</td>
-        <td className="font-bold max-w-[200px] border-r">{changedCurrency(+product.price)}</td>
-        <td className="font-bold max-w-[200px] border-r">{changedCurrency(+product.price * quantity)}</td>
-        <td className="text-center border-r">
+        <td className="font-bold max-w-[300px] ">{product.name}</td>
+        <td className="font-bold max-w-[200px] ">{changedCurrency(+product.price)}</td>
+        <td className="font-bold max-w-[200px] ">{changedCurrency(+product.price * product.quantity)}</td>
+        <td className="text-center ">
           <div className="flex items-center gap-5 justify-center">
             <AiOutlineMinus
-                onClick={handleDecrement}
-                className="text-[#56b280] text-xl font-bold transition-transform active:scale-90"
+                onClick={() => handleDecrement(product)}
+                className="text-black text-xl font-bold transition-transform active:scale-90"
             />
-            <span className="w-5 text-center">{quantity}</span>
+            <span className="w-5 text-center">{product.quantity}</span>
             <AiOutlinePlus
-                onClick={handleIncrement}
-                className="text-[#56b280] text-xl font-bold transition-transform active:scale-90"
+                onClick={() => handleIncrement(product)}
+                className="text-black text-xl font-bold transition-transform active:scale-90"
             />
           </div>
         </td>
-        <td className="flex justify-center items-center flex-col border-r py-2">
-          <TableColors product={product.product_colors} selectColor={selectColor} />
+        <td>
+          <div className="flex justify-center items-center">
+            <span style={{backgroundColor: product.color}} className="text-black w-8 mx-auto h-8 rounded-full"></span>
+          </div>
         </td>
         <td className="">
           <div>
@@ -97,7 +92,7 @@ const CartTable = ({product}: { product: Products }) => {
                 cancelText="Cancel"
             >
               <TiDelete
-                  className="text-4xl text-center block mx-auto text-[#56b280]"
+                  className="text-4xl text-center block mx-auto text-black"
               />
             </Popconfirm>
           </div>
