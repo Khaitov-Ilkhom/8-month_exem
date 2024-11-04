@@ -4,6 +4,7 @@ import CartTable from "../../components/cart-table/CartTable.tsx";
 import {Products} from "../../types";
 import Navbar from "../../components/navbar/Navbar.tsx";
 import notProduct from "../../images/ProductNotFound.png"
+import Footer from "../../components/footer/Footer.tsx";
 
 const Carts = () => {
   const { cartProduct }: { cartProduct: Products[] } = useSelector((state: RootState) => state.cart);
@@ -48,6 +49,7 @@ const Carts = () => {
               </table>
             </div>
         </div>
+        <Footer/>
       </div>
   );
 };
