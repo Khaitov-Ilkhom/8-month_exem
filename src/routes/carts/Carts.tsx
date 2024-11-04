@@ -26,7 +26,7 @@ const Carts = () => {
                   <th className="py-4 text-center">Product Price</th>
                   <th className="py-4 text-center">Product Total</th>
                   <th className="py-4 text-center">Quantity</th>
-                  <th className="py-4 text-center">Colors</th>
+                  <th className="py-4 text-center">Color</th>
                   <th className="py-4 !text-center">Action</th>
                 </tr>
                 </thead>
